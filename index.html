@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="si">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WebNews Post Maker EASY — Double Click</title>
+<style>
+:root{--yellow:#ffc400;--black:#111;--bg:#f5f5f1;--card:#fff;--line:#deddd5;--muted:#68707a;--green:#167a3e;--red:#b42318;--blue:#175cd3;--radius:18px}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,"Noto Sans Sinhala",sans-serif;background:var(--bg);color:#171a1e}
+header{background:var(--black);color:#fff;border-bottom:6px solid var(--yellow);position:sticky;top:0;z-index:10}
+.head{max-width:1500px;margin:auto;padding:14px 20px;display:flex;align-items:center;gap:14px}
+.logo{width:52px;height:52px;border-radius:13px;background:var(--yellow);color:#111;display:grid;place-items:center;font-weight:900;font-size:24px}
+h1{font-size:24px;margin:0}.head small{display:block;color:#d4d4d4;font-size:13px;margin-top:2px}.demo{margin-left:auto;background:var(--yellow);color:#111;font-weight:800;border-radius:999px;padding:8px 13px;font-size:13px;white-space:nowrap}
+main{max-width:1500px;margin:auto;padding:20px}.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}.flow div{background:#111;color:#fff;border-radius:14px;padding:13px 15px;font-weight:750}.flow b{color:var(--yellow)}
+.layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(360px,.95fr);gap:18px;align-items:start}.col{display:grid;gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:0 5px 22px rgba(20,20,20,.05)}
+h2{font-size:21px;margin:0 0 6px}h3{font-size:17px;margin:0 0 10px}.hint{color:var(--muted);font-size:13.5px;line-height:1.55}.step{display:inline-grid;place-items:center;width:31px;height:31px;background:var(--yellow);border:2px solid #111;border-radius:50%;font-weight:900;margin-right:8px}
+label{font-size:13px;font-weight:750;display:block;margin:13px 0 6px}input,textarea,select{width:100%;border:1px solid #c9cdd3;border-radius:11px;padding:11px 12px;font:inherit;font-size:14.5px;background:#fff;outline:none}textarea{line-height:1.55;resize:vertical}input:focus,textarea:focus,select:focus{border-color:#111;box-shadow:0 0 0 3px rgba(255,196,0,.35)}
+.row{display:flex;gap:10px}.row>*{flex:1}.btn{border:0;border-radius:11px;padding:12px 16px;font-weight:850;cursor:pointer;font-size:14.5px}.btn.primary{background:#111;color:var(--yellow)}.btn.yellow{background:var(--yellow);color:#111}.btn.light{background:#eef0f2;color:#111}.btn:disabled{opacity:.45;cursor:not-allowed}.btnrow{display:flex;flex-wrap:wrap;gap:9px;margin-top:13px}
+.status{display:none;border-radius:11px;padding:11px 12px;margin-top:12px;font-size:14px}.status.show{display:block}.status.ok{background:#e9f8ee;color:#0d5c2b;border:1px solid #bde8c9}.status.err{background:#fff0ef;color:#8f1d14;border:1px solid #ffc9c4}.status.info{background:#eef4ff;color:#17499c;border:1px solid #c7dbff}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.pill{background:#f1f2ed;border-radius:999px;padding:5px 9px;font-size:12.5px;color:#465}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.checks{display:grid;gap:9px}.checks label{display:flex;gap:9px;align-items:flex-start;margin:0;font-weight:600}.checks input{width:19px;height:19px;flex:0 0 auto;margin:1px 0 0}.progress{height:11px;background:#e8e8e2;border-radius:999px;overflow:hidden;margin:10px 0 15px}.progress div{height:100%;width:0;background:var(--yellow);transition:.25s}
+canvas{width:100%;aspect-ratio:16/9;background:#181818;border-radius:13px;border:1px solid #333;display:block}.drop{border:1.5px dashed #aab0b8;border-radius:13px;padding:15px;text-align:center;background:#fbfbf8}.drop.drag{border-color:#111;background:#fff8cf}input[type=range]{padding:3px}.links{display:grid;grid-template-columns:1fr 1fr;gap:8px}.links a{text-decoration:none;text-align:center;background:#111;color:#fff;padding:10px;border-radius:10px;font-weight:750;font-size:13.5px}.warn{background:#fff7d6;border:1px solid #f2d35c;border-radius:12px;padding:11px 12px;font-size:13.5px;line-height:1.5}
+footer{max-width:1500px;margin:auto;padding:0 20px 28px;color:var(--muted);font-size:13px}.sticky{position:sticky;top:92px}
+@media(max-width:1020px){.layout{grid-template-columns:1fr}.sticky{position:static}.flow{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){main{padding:12px}.head{padding:11px 12px}.demo{display:none}.flow{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}.row{flex-direction:column}.card{padding:16px}h1{font-size:20px}}
+</style>
+</head>
+<body>
+<header><div class="head"><div class="logo">WN</div><h1>WebNews Post Maker<small>Double-click version — Python/CMD ona na</small></h1><div class="demo">EASY • NO INSTALL</div></div></header>
+<main>
+  <div class="warn" style="margin-bottom:16px"><b>EASY VERSION:</b> Me file eka browser eken open kala nam athi. Python hari CMD hari ona na. Link auto-read eka internet thiyeddii try karanawa; bari unoth source text eka Paste karanna.</div>
+  <div class="flow"><div><b>1</b> &nbsp;Source danna</div><div><b>2</b> &nbsp;Settings select karanna</div><div><b>3</b> &nbsp;Prompt eka AI ekata yanna</div><div><b>4</b> &nbsp;Check → WP post</div></div>
+
+  <div class="layout">
+    <div class="col">
+      <section class="card">
+        <h2><span class="step">1</span>Source eka</h2>
+        <p class="hint">News link ekak dala <b>“Link eka Kiyawanna”</b> click karanna. Link open nowunoth, govt/press release Hari source text eka dirēkt paste karanna.</p>
+        <label>News link</label>
+        <div class="row"><input id="url" type="url" placeholder="https://..."><button class="btn primary" id="extractBtn" type="button" style="flex:0 0 auto">Link eka Kiyawanna</button></div>
+        <div id="extractStatus" class="status"></div>
+        <div class="grid2">
+          <div><label>Source title</label><input id="sourceTitle" placeholder="Auto fill wei / nettan athin liyanna"></div>
+          <div><label>Source name</label><input id="sourceName" placeholder="Ex: Government press release"></div>
+        </div>
+        <label>Source text / notes</label>
+        <textarea id="sourceText" rows="13" placeholder="Source text eka methana paste karanna..."></textarea>
+        <div class="meta"><span class="pill" id="sourceStats">Wachana: 0</span><span class="pill">Wena site text copy nokara facts walin aluthen liyanna prompt eke dala thiyenawa</span></div>
+      </section>
+
+      <section class="card">
+        <h2><span class="step">2</span>Post settings</h2>
+        <div class="grid2">
+          <div><label>Category</label><select id="category"><option>Auto select</option><option>Deshiya</option><option>Deshapalana</option><option>Kreeda</option><option>Wiyaparika</option><option>Wideshiya</option><option>Kalagunaya</option><option>Wenath</option></select></div>
+          <div><label>Article lamba</label><select id="wordCount"><option>250-300</option><option selected>300-400</option><option>400-500</option><option>180-250 (short breaking)</option></select></div>
+          <div><label>Image kramaya</label><select id="imageMode"><option value="search" selected>Aththa photo hoyanna witharak</option><option value="own">Ape photo ekak attach karanawa</option></select></div>
+          <div><label>Tone</label><select id="tone"><option selected>Neutral news</option><option>Breaking / urgent</option><option>Explainer (pahadili karanna)</option></select></div>
+        </div>
+        <label>Amuthu note ekak (thiyenawanam)</label><input id="note" placeholder="Ex: Colombo walata focus karanna, minister ge quote eka highlight...">
+        <div class="checks" style="margin-top:14px">
+          <label><input type="checkbox" id="wantFb" checked> Facebook caption ona</label>
+          <label><input type="checkbox" id="wantWa" checked> WhatsApp short text ona</label>
+          <label><input type="checkbox" id="wantSeo" checked> Yoast focus keyword + meta description ona</label>
+        </div>
+        <div class="btnrow"><button class="btn yellow" id="makePromptBtn" type="button">⭐ ALL-IN-ONE Prompt Hadanna</button></div>
+      </section>
+
+      <section class="card" id="promptCard">
+        <h2><span class="step">3</span>AI prompt ekath result ekath</h2>
+        <p class="hint">Hadapu prompt eka copy karala ChatGPT/Gemini wage AI ekakata paste karanna. Me easy version eke AI API key ekak connect karala naha; prompt eka copy karala AI ekata danna.</p>
+        <label>Ready prompt</label><textarea id="promptOut" rows="17" placeholder="Settings select karala ▶ Prompt Hadanna click karanna..."></textarea>
+        <div class="btnrow"><button class="btn primary" id="copyPromptBtn" type="button">Prompt Copy karanna</button><button class="btn light" id="downloadPromptBtn" type="button">Prompt .txt Download</button></div>
+        <div id="copyStatus" class="status"></div>
+        <label>AI gen apu result eka methana paste karanna</label><textarea id="aiResult" rows="12" placeholder="Title + article + tags + image details okkoma methana danna..."></textarea>
+        <div class="meta"><span class="pill" id="resultStats">Result wachana: 0</span></div>
+        <div class="btnrow"><button class="btn yellow" id="downloadPackageBtn" type="button">Post Package .txt Download</button></div>
+      </section>
+    </div>
+
+    <div class="col">
+      <section class="card sticky">
+        <h2><span class="step">4</span>Image Studio</h2>
+        <p class="hint">Hari photo ekak upload kalama website saha Facebook versions 1200×675 widihata hadala ganna puluwan.</p>
+        <div class="drop" id="dropZone"><b>Photo eka methanata drag karanna</b><br><span class="hint">hari select karanna</span><input id="imageFile" type="file" accept="image/*" style="margin-top:10px"></div>
+        <div style="height:13px"></div>
+        <canvas id="canvas" width="1200" height="675"></canvas>
+        <div class="grid2">
+          <div><label>Zoom</label><input id="zoom" type="range" min="1" max="2.6" step="0.01" value="1"></div>
+          <div><label>Badge</label><select id="badge"><option value="">Na</option><option>BREAKING</option><option>UPDATE</option><option>LIVE</option></select></div>
+          <div><label>Left / Right</label><input id="panX" type="range" min="-250" max="250" value="0"></div>
+          <div><label>Up / Down</label><input id="panY" type="range" min="-180" max="180" value="0"></div>
+        </div>
+        <label>FB image eke headline (wachana 4–7)</label><input id="overlayText" placeholder="Ex: අද රන් මිල ඉහළ යයි">
+        <label>File name</label><input id="fileName" value="webnews-image" placeholder="gold-price-sri-lanka">
+        <div class="checks"><label><input type="checkbox" id="showBranded" checked> Preview eke Facebook branding pennanna</label></div>
+        <div class="btnrow"><button class="btn primary" id="downloadCleanBtn" type="button" disabled>Website Clean JPG</button><button class="btn yellow" id="downloadFbBtn" type="button" disabled>Facebook JPG</button></div>
+        <div id="imageStatus" class="status"></div>
+      </section>
+
+      <section class="card">
+        <h3>Aththa photo hoyanna</h3>
+        <label>English search keywords</label><input id="searchKeywords" placeholder="Ex: heavy rain Colombo street Sri Lanka">
+        <div class="links" style="margin-top:10px"><a id="linkPexels" target="_blank" rel="noopener">Pexels</a><a id="linkPixabay" target="_blank" rel="noopener">Pixabay</a><a id="linkWiki" target="_blank" rel="noopener">Wikimedia</a><a id="linkUnsplash" target="_blank" rel="noopener">Unsplash</a></div>
+        <p class="hint">Photo ekak ganna kalin licence + photographer credit check karanna. Wena news site wala photo ganna epa.</p>
+        <p class="hint">AI images use karanne naha — aththa photos witharak ganna.</p>
+      </section>
+
+      <section class="card">
+        <h3>Publish karanna kalin checklist</h3>
+        <div class="progress"><div id="checkProgress"></div></div>
+        <div class="checks" id="publishChecks">
+          <label><input type="checkbox">Nama, ganan, dina confirm kala</label>
+          <label><input type="checkbox">Title eke date naha, boru clickbait naha</label>
+          <label><input type="checkbox">Article wachana 250+, ape wachana walin</label>
+          <label><input type="checkbox">Photo licence/credit Hari (aththa photo witharak, AI images neha)</label>
+          <label><input type="checkbox">Category + tags 5–8 + meta dala</label>
+          <label><input type="checkbox">Related news 3kata internal links dala</label>
+          <label><input type="checkbox">Publish passe FB + WhatsApp damma</label>
+        </div>
+      </section>
+
+      <div class="warn"><b>EASY VERSION:</b> Install karanna deyak na. Prompt + Image Studio hema welema wada. Full auto AI ona nam passe API version ekata yamu.</div>
+    </div>
+  </div>
+</main>
+<footer>WebNews Post Maker EASY • Data save wenne na • Publish karanna kalin editor check eka aniwaryai</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const words=t=>(t||'').trim()? (t||'').trim().split(/\s+/).filter(Boolean).length:0;
+function status(el,msg,type='ok'){el.textContent=msg;el.className='status show '+type}
+function countUpdate(){$('sourceStats').textContent='Wachana: '+words($('sourceText').value);$('resultStats').textContent='Result wachana: '+words($('aiResult').value)}
+$('sourceText').addEventListener('input',countUpdate);$('aiResult').addEventListener('input',countUpdate);
+
+function parseReaderText(raw,url){
+ const titleMatch=raw.match(/^Title:\s*(.+)$/m);
+ const body=(raw.split(/Markdown Content:/i)[1]||raw)
+  .replace(/!\[([^\]]*)\]\([^)]*\)/g,'$1')
+  .replace(/\[([^\]]+)\]\((?:https?:\/\/[^)]*)\)/g,'$1')
+  .replace(/https?:\/\/\S+/g,' ')
+  .replace(/[#>*_`|]/g,' ');
+ const banned=['skip to content','login','entries rss','comments rss','wordpress.org','search …','search...','menu','facebook-f','twitter','youtube'];
+ const paras=[]; const seen=new Set();
+ body.split(/\n+/).map(x=>x.replace(/\s+/g,' ').trim()).forEach(line=>{
+  if(line.length<45||words(line)<6)return;
+  const low=line.toLowerCase();
+  if(banned.some(b=>low===b||low.startsWith(b)))return;
+  const key=low.slice(0,120); if(seen.has(key))return; seen.add(key); paras.push(line);
+ });
+ let host=''; try{host=new URL(url).hostname.replace(/^www\./,'')}catch(e){}
+ return {title:titleMatch?titleMatch[1].trim():'',site:host,text:paras.join('\n\n'),word_count:words(paras.join(' '))};
+}
+async function extractViaReader(url){
+ const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),45000);
+ try{
+  const r=await fetch('https://r.jina.ai/'+url,{signal:controller.signal});
+  if(!r.ok) throw new Error('Online reader eken ganna ba ('+r.status+')');
+  const d=parseReaderText(await r.text(),url);
+  if(!d.text||d.word_count<25) throw new Error('Online reader eken article text eka hambune na.');
+  return d;
+ }finally{clearTimeout(timer)}
+}
+
+$('extractBtn').addEventListener('click',async()=>{
+ const url=$('url').value.trim(); const st=$('extractStatus');
+ if(!url){status(st,'Issella link ekak danna.','err');return}
+ if(!/^https?:\/\//i.test(url)){status(st,'http:// hari https:// eken patan ganna full link ekak danna.','err');return}
+ $('extractBtn').disabled=true;status(st,'Link eka kiyawanawa... poddak inna.','info');
+ let d=null,lastError='';
+ if(window.location.protocol.startsWith('http')){
+  try{
+   const r=await fetch('/api/extract',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});
+   const data=await r.json();
+   if(data.ok&&words(data.text)>=25)d=data; else lastError=data.error||'Backend eken text hambune na.';
+  }catch(e){lastError=e.message}
+ }
+ if(!d){
+  try{status(st,'Online reader haraha try karanawa... second 10-40k inna puluwan.','info');d=await extractViaReader(url)}
+  catch(e){lastError=e.name==='AbortError'?'Reader timeout una.':e.message}
+ }
+ $('extractBtn').disabled=false;
+ if(!d){status(st,'✖ Link eka auto kiyawanna bari una. Article text eka copy karala Source Text box ekata Paste karanna. ('+lastError+')','err');$('sourceText').focus();return}
+ $('sourceTitle').value=d.title||'';$('sourceName').value=d.site||'';
+ $('sourceText').value=(d.text||'').slice(0,22000); countUpdate();
+ status(st,`✔ Link eka kiyawwa. Wachana ${d.word_count||words(d.text)} hambuna. Text eka check karala settings select karala prompt hadanna.`,'ok');
+});
+
+function imageInstructions(){
+ const mode=$('imageMode').value;
+ if(mode==='search') return `IMAGE — SEARCH ONLY (AI images EPA):
+- Hariyana aththa photo 3k hoyanna. Wikimedia Commons, Pexels, Pixabay, Unsplash, government/official releases witharak. Source URL, photographer, licence, dina/thana denna. Wena news site photos EPA. Aththa siddhiyema neme nam "Gonu/File photo" flag karanna.
+- Web search karanna ba nam hadala boru links/nam danna EPA — e wenuwata Pexels/Pixabay search links (https://www.pexels.com/search/<keywords>/) + English keywords denna.
+- AI illustration hadanna EPA. Aththa photos witharak.`;
+ if(mode==='own') return `IMAGE — APE PHOTO:
+- Mama attach karana ape photo eka thama pradhana image eka. Ekata hari caption, ALT text, file name, crop widiya (1200x675, muunu nakapenna) saha FB overlay text hadala denna. Photo nathuwa athhta kiyanna ba nam eka kiyanna.
+- AI image hadanna EPA.`;
+ return `IMAGE — SEARCH ONLY (AI images EPA):
+- Hariyana aththa photo 3k hoyanna. Wikimedia Commons, Pexels, Pixabay, Unsplash, government/official releases witharak. Source URL, photographer, licence, dina/thana denna. Wena news site photos EPA. Aththa siddhiyema neme nam "Gonu/File photo" flag karanna.
+- Web search karanna ba nam hadala boru links/nam danna EPA — e wenuwata Pexels/Pixabay search links (https://www.pexels.com/search/<keywords>/) + English keywords denna.
+- AI illustration hadanna EPA. Aththa photos witharak.`;
+}
+
+$('makePromptBtn').addEventListener('click',()=>{
+ const src=$('sourceText').value.trim(), url=$('url').value.trim();
+ if(!url&&!src){status($('extractStatus'),'Link ekak Hari source text ekak danna.','err');$('url').focus();return}
+ const cat=$('category').value, wc=$('wordCount').value, note=$('note').value.trim();
+ const extras=[];
+ if($('wantFb').checked)extras.push('- FACEBOOK CAPTION: lines 2k + anthimata "Sampurna vistharaya 👇 [POST LINK]".');
+ if($('wantWa').checked)extras.push('- WHATSAPP SHORT TEXT: wachana 25 adu + [POST LINK].');
+ if($('wantSeo').checked)extras.push('- SEO: Focus keyword 1k + Meta description akuru 150-160 (Sinhala).');
+ const srcBlock=src? src.slice(0,14000) : '[Source text paste karala naha — uda LINK eka open karanna; ba nam nawaththila kiyanna.]';
+ const Lines=[
+'Uba Sri Lanka wala Sinhala news website ekaka (WebNews.lk) senior sub-editor saha photo editor kenek.',
+'Mama dena SOURCE eken WordPress POST karanna puluwan sampurna package ekama — news ekath, image ekath — eka parata hadala denna.','','STEP 1 — SOURCE:',
+'- Link open karanna ba nam eka kiyala nawaththanna. HADALA mukuth liyanna EPA.',
+'- Facts witharak ganna: kawuda, mokadda, koheda, kawada, ganan, quotes thanathuru. Confirm nathi ewa [CONFIRM KARANNA] mark karanna.',
+'- Source eke wachana copy EPA. Ape wachana walin, aluth piliwelakata liyanna.','',
+'STEP 2 — NEWS PACKAGE:',
+`- ARTICLE: Sinhala Unicode, wachana ${wc}. Palaweni paragraph eken katawa, podi paragraph, sub-heading 2-3. Tone: ${$('tone').value}.`,
+'- TITLES 3: date nathuwa, palaweni wachana 3 athulata keyword, boru clickbait nathuwa; hodama ekata ⭐.',
+`- CATEGORY: ${cat==='Auto select'?'Deshiya/Deshapalana/Kreeda/Wiyaparika/Wideshiya/Kalagunaya/Wenath ekak thoranna':cat}.`,
+'- TAGS: 5-8 ENGLISH witharak (news ekata adala people, places, topics). Sinhala tags EPA.',...extras,'',imageInstructions(),'',
+'IMAGE PACKAGE: Recommend image ekata 1200x675 size, Sinhala Caption, ALT text, File name (english-akuru-keywords.jpg), Credit (photographer/site), FB overlay text wachana 4-6 denna.','',
+'STEP 3 — OUTPUT me piliwelatama:',
+'1) ⭐ Hoda-ma Title + thawa 2','2) ARTICLE (wenama, copy lesi widihata)','3) WP FIELDS: Category | Tags | Focus keyword | Meta description','4) IMAGE options/search results (aththa photos witharak)','5) ⭐ Recommend Image + Caption/ALT/File name/Credit/FB overlay','6) FB/WhatsApp texts','7) [CONFIRM KARANNA] list eka: nama, ganan, dina, thana','',
+'Source eke nathi mukuthma (fact/ganana/nama) HADA danna EPA.'];
+ if(note)Lines.push('', 'EDITOR NOTE: '+note);
+ Lines.push('','--- SOURCE ---','LINK: '+(url||'-'),'SOURCE TITLE: '+($('sourceTitle').value.trim()||'-'),'SOURCE NAME: '+($('sourceName').value.trim()||'-'),'','TEXT:',''+srcBlock);
+ $('promptOut').value=Lines.join('\n');
+ $('promptCard').scrollIntoView({behavior:'smooth',block:'start'});
+ status($('copyStatus'),'✔ Prompt eka ready. Copy karala AI ekata paste karanna.','ok');
+});
+
+async function copyTextFrom(id,msgEl,msg){const el=$(id);try{await navigator.clipboard.writeText(el.value);status(msgEl,msg,'ok')}catch(e){el.select();document.execCommand('copy');status(msgEl,msg,'ok')}}
+$('copyPromptBtn').addEventListener('click',()=>copyTextFrom('promptOut',$('copyStatus'),'✔ Prompt eka copy una.'));
+function downloadText(name,text){const blob=new Blob([text],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+$('downloadPromptBtn').addEventListener('click',()=>downloadText('webnews-post-prompt.txt',$('promptOut').value));
+$('downloadPackageBtn').addEventListener('click',()=>{const pkg=['WEBNEWS POST PACKAGE','Date: '+new Date().toLocaleString(),'Source: '+($('url').value||'-'),'Title: '+($('sourceTitle').value||'-'),'','--- AI RESULT ---',$('aiResult').value,'','--- PROMPT USED ---',$('promptOut').value].join('\n');downloadText('webnews-post-package.txt',pkg)});
+
+/* Image Studio */
+const canvas=$('canvas'),ctx=canvas.getContext('2d');let photo=null;
+function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function wrapText(text,maxW){const ws=(text||'').split(/\s+/).filter(Boolean);const Lines=[];let cur='';for(const w of ws){const test=(cur+' '+w).trim();if(ctx.measureText(test).width<=maxW||!cur)cur=test;else{Lines.push(cur);cur=w}}if(cur)Lines.push(cur);return Lines.slice(0,3)}
+function draw(branded=$('showBranded').checked){
+ ctx.fillStyle='#171717';ctx.fillRect(0,0,1200,675);
+ if(!photo){ctx.fillStyle='#777';ctx.font='700 40px Arial';ctx.textAlign='center';ctx.fillText('Photo ekak upload karanna',600,340);ctx.textAlign='left';return}
+ const zoom=parseFloat($('zoom').value),px=parseFloat($('panX').value),py=parseFloat($('panY').value);
+ const scale=Math.max(1200/photo.naturalWidth,675/photo.naturalHeight)*zoom;
+ const dw=photo.naturalWidth*scale,dh=photo.naturalHeight*scale;
+ ctx.drawImage(photo,(1200-dw)/2+px,(675-dh)/2+py,dw,dh);
+ if(!branded)return;
+ const grad=ctx.createLinearGradient(0,430,0,675);grad.addColorStop(0,'rgba(0,0,0,0)');grad.addColorStop(1,'rgba(0,0,0,.86)');ctx.fillStyle=grad;ctx.fillRect(0,430,1200,245);
+ const badge=$('badge').value;
+ if(badge){ctx.fillStyle='#d92d20';rr(30,28,238,58,14);ctx.fill();ctx.fillStyle='#fff';ctx.font='900 31px Arial';ctx.textAlign='center';ctx.fillText(badge,149,67);ctx.textAlign='left'}
+ ctx.fillStyle='#ffc400';rr(942,28,228,58,14);ctx.fill();ctx.fillStyle='#111';ctx.font='900 28px Arial';ctx.textAlign='center';ctx.fillText('WebNews.lk',1056,66);ctx.textAlign='left';
+ const headline=$('overlayText').value.trim();
+ if(headline){ctx.font='900 46px Arial, sans-serif';const Lines=wrapText(headline,1100);let y=650-(Lines.length*54);ctx.fillStyle='#fff';Lines.forEach((line,i)=>ctx.fillText(line,36,y+38+i*54));}
+}
+function loadPhoto(file){if(!file)return;const url=URL.createObjectURL(file);const im=new Image();im.onload=()=>{photo=im;$('downloadCleanBtn').disabled=false;$('downloadFbBtn').disabled=false;draw();status($('imageStatus'),`✔ Photo load una (${im.naturalWidth}×${im.naturalHeight}). Zoom/pan hadala download karanna.`,'ok')};im.src=url}
+$('imageFile').addEventListener('change',e=>loadPhoto(e.target.files[0]));
+const dz=$('dropZone');['dragover','dragenter'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('drag')}));['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('drag')}));dz.addEventListener('drop',e=>loadPhoto(e.dataTransfer.files[0]));
+['zoom','panX','panY','badge','overlayText','showBranded'].forEach(id=>$(id).addEventListener('input',()=>draw()));
+function safeName(){return ($('fileName').value.trim()||'webnews-image').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'webnews-image'}
+function exportJpg(branded,suffix){draw(branded);canvas.toBlob(blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=safeName()+suffix+'.jpg';a.click();status($('imageStatus'),`✔ ${a.download} download una — ${(blob.size/1024).toFixed(0)} KB. Target eka 150KB adu keeyada kiyala balanna.`,'ok');setTimeout(()=>{draw();URL.revokeObjectURL(a.href)},300)},'image/jpeg',0.86)}
+$('downloadCleanBtn').addEventListener('click',()=>exportJpg(false,'-website'));
+$('downloadFbBtn').addEventListener('click',()=>exportJpg(true,'-facebook'));
+draw();
+
+/* Search links */
+function updateLinks(){const q=encodeURIComponent($('searchKeywords').value.trim()||'sri lanka news');$('linkPexels').href=`https://www.pexels.com/search/${q}/`;$('linkPixabay').href=`https://pixabay.com/images/search/${q}/`;$('linkWiki').href=`https://commons.wikimedia.org/w/index.php?search=${q}&title=Special:MediaSearch&type=image`;$('linkUnsplash').href=`https://unsplash.com/s/photos/${q}`}
+$('searchKeywords').addEventListener('input',updateLinks);updateLinks();
+
+
+/* checklist */
+function updateChecks(){const boxes=[...document.querySelectorAll('#publishChecks input')];const done=boxes.filter(b=>b.checked).length;$('checkProgress').style.width=(done/boxes.length*100)+'%'}
+document.querySelectorAll('#publishChecks input').forEach(b=>b.addEventListener('change',updateChecks));
+countUpdate();
+</script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a53919e8dd93b95e',t:'MTc5MzUxNzI1MQ=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a53919e8dd93b95e',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
