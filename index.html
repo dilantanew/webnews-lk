@@ -19,6 +19,7 @@ label{font-size:13px;font-weight:750;display:block;margin:13px 0 6px}input,texta
 .status{display:none;border-radius:11px;padding:11px 12px;margin-top:12px;font-size:14px}.status.show{display:block}.status.ok{background:#e9f8ee;color:#0d5c2b;border:1px solid #bde8c9}.status.err{background:#fff0ef;color:#8f1d14;border:1px solid #ffc9c4}.status.info{background:#eef4ff;color:#17499c;border:1px solid #c7dbff}
 .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.pill{background:#f1f2ed;border-radius:999px;padding:5px 9px;font-size:12.5px;color:#465}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.checks{display:grid;gap:9px}.checks label{display:flex;gap:9px;align-items:flex-start;margin:0;font-weight:600}.checks input{width:19px;height:19px;flex:0 0 auto;margin:1px 0 0}.progress{height:11px;background:#e8e8e2;border-radius:999px;overflow:hidden;margin:10px 0 15px}.progress div{height:100%;width:0;background:var(--yellow);transition:.25s}
 .warn{background:#fff7d6;border:1px solid #f2d35c;border-radius:12px;padding:11px 12px;font-size:13.5px;line-height:1.5}
+.splitbox{border:1px solid var(--line);border-radius:13px;padding:12px;margin-top:12px;background:#fbfbf8}.splitbox label{margin-top:0}.splitbox textarea{background:#fff}.splitbox .btnrow{margin-top:9px}
 footer{max-width:1500px;margin:auto;padding:0 20px 28px;color:var(--muted);font-size:13px}.sticky{position:sticky;top:92px}
 @media(max-width:1020px){.layout{grid-template-columns:1fr}.sticky{position:static}.flow{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){main{padding:12px}.head{padding:11px 12px}.demo{display:none}.flow{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}.row{flex-direction:column}.card{padding:16px}h1{font-size:20px}}
@@ -71,6 +72,8 @@ footer{max-width:1500px;margin:auto;padding:0 20px 28px;color:var(--muted);font-
         <div id="copyStatus" class="status"></div>
         <label>AI gen apu result eka methana paste karanna</label><textarea id="aiResult" rows="12" placeholder="Title + article + tags + SEO + social texts okkoma methana danna..."></textarea>
         <div class="meta"><span class="pill" id="resultStats">Result wachana: 0</span></div>
+        <div id="splitStatus" class="status"></div>
+        <div id="splitOutput"></div>
         <div class="btnrow"><button class="btn yellow" id="downloadPackageBtn" type="button">Post Package .txt Download</button></div>
       </section>
     </div>
@@ -160,9 +163,31 @@ $('makePromptBtn').addEventListener('click',()=>{
  if(!url&&!src){status($('extractStatus'),'Link ekak Hari source text ekak danna.','err');$('url').focus();return}
  const cat=$('category').value, wc=$('wordCount').value, note=$('note').value.trim();
  const extras=[];
- if($('wantFb').checked)extras.push('- FACEBOOK CAPTION: lines 2k + anthimata "Sampurna vistharaya 👇 [POST LINK]".');
+ if($('wantFb').checked)extras.push('- FACEBOOK CAPTION: lines 2k + anthimata "සම්පූර්ණ විස්තරය 👇 [POST LINK]".');
  if($('wantWa').checked)extras.push('- WHATSAPP SHORT TEXT: wachana 25 adu + [POST LINK].');
  if($('wantSeo').checked)extras.push('- SEO: Focus keyword 1k + Meta description akuru 150-160 (Sinhala).');
+ const wpFields=['Category: <category eka>','Tags: <English tags, comma walin wen karala>','URL slug: <english-akuru-hyphen-slug>'];
+ if($('wantSeo').checked)wpFields.push('Focus keyword: <keyword eka>','Meta description: <akuru 150-160>');
+ const outputFormat=[
+ '=== KEY FACTS ===',
+ '- <Sinhala bullet widihata source fact 1>',
+ '- <Sinhala bullet widihata source fact 2>',
+ '',
+ '=== TITLE + ARTICLE ===',
+ 'TITLE: <hodama title eka>',
+ 'ARTICLE:',
+ '<article eka witharak>',
+ '',
+ '=== OTHER TITLE OPTIONS ===',
+ '1. <title option 2>',
+ '2. <title option 3>',
+ '',
+ '=== WORDPRESS DETAILS ===',
+ ...wpFields
+ ];
+ if($('wantFb').checked)outputFormat.push('','=== FACEBOOK ===','<facebook caption eka witharak>');
+ if($('wantWa').checked)outputFormat.push('','=== WHATSAPP ===','<whatsapp short text eka witharak>');
+ outputFormat.push('','=== CONFIRM KARANNA ===','- <check karanna ona karunu>');
  const srcBlock=src? src.slice(0,14000) : '[Source text paste karala naha — uda LINK eka open karanna; ba nam nawaththila kiyanna.]';
  const Lines=[
 'Uba Sri Lanka wala Sinhala news website ekaka (WebNews.lk) senior sub-editor kenek.',
@@ -171,12 +196,14 @@ $('makePromptBtn').addEventListener('click',()=>{
 '- Facts witharak ganna: kawuda, mokadda, koheda, kawada, ganan, quotes thanathuru. Confirm nathi ewa [CONFIRM KARANNA] mark karanna.',
 '- Source eke wachana copy EPA. Ape wachana walin, aluth piliwelakata liyanna.','',
 'STEP 2 — NEWS PACKAGE:',
-`- ARTICLE: Sinhala Unicode, wachana ${wc}. Palaweni paragraph eken katawa, podi paragraph, sub-heading 2-3. Tone: ${$('tone').value}.`,
-'- TITLES 3: date nathuwa, palaweni wachana 3 athulata keyword, boru clickbait nathuwa; hodama ekata ⭐.',
+'- KEY FACTS: Source eke thiyena pradhana facts witharak Sinhala bullet list ekak widihata wenama denna (kawuda, mokadda, koheda, kawada, ganan, nama, thanathuru, quotes). Source eke nathi deyak hadanna EPA; naha nam "Source eke naha — CONFIRM" kiyala mark karanna.',
+`- ARTICLE: Sinhala Unicode, wachana ${wc}. Palaweni paragraph eken katawa, podi paragraph, sub-heading 2-3. Tone: ${$('tone').value}. Article eka TITLE + ARTICLE block eke ARTICLE: yatin witharak denna.`,
+'- TITLES: Hodama title eka TITLE + ARTICLE block eke TITLE: widihata denna. Thawa title options 2k OTHER TITLE OPTIONS block eke denna. Date nathuwa, palaweni wachana 3 athulata keyword, boru clickbait nathuwa.',
 `- CATEGORY: ${cat==='Auto select'?'Deshiya/Deshapalana/Kreeda/Wiyaparika/Wideshiya/Kalagunaya/Wenath ekak thoranna':cat}.`,
-'- TAGS: 5-8 ENGLISH witharak (news ekata adala people, places, topics). Sinhala tags EPA.',...extras,'',
-'STEP 3 — OUTPUT me piliwelatama:',
-'1) ⭐ Hoda-ma Title + thawa 2','2) ARTICLE (wenama, copy lesi widihata)','3) WP FIELDS: Category | Tags | Focus keyword | Meta description','4) FB/WhatsApp texts','5) [CONFIRM KARANNA] list eka: nama, ganan, dina, thana','',
+'- TAGS: 5-8 ENGLISH witharak (news ekata adala people, places, topics). Sinhala tags EPA.','- URL SLUG: English akuru, hyphen, keti.',...extras,'',
+'STEP 3 — OUTPUT FORMAT (me headings tikama, me piliwelatama use karanna; amathara intro/outro liyanna EPA):',
+...outputFormat,'',
+'Headings walin pita mukuth liyanna EPA. Hema block ekema adala content eka witharak danna.',
 'Source eke nathi mukuthma (fact/ganana/nama) HADA danna EPA.'];
  if(note)Lines.push('', 'EDITOR NOTE: '+note);
  Lines.push('','--- SOURCE ---','LINK: '+(url||'-'),'SOURCE TITLE: '+($('sourceTitle').value.trim()||'-'),'SOURCE NAME: '+($('sourceName').value.trim()||'-'),'','TEXT:',''+srcBlock);
@@ -190,6 +217,55 @@ $('copyPromptBtn').addEventListener('click',()=>copyTextFrom('promptOut',$('copy
 function downloadText(name,text){const blob=new Blob([text],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 $('downloadPromptBtn').addEventListener('click',()=>downloadText('webnews-post-prompt.txt',$('promptOut').value));
 $('downloadPackageBtn').addEventListener('click',()=>{const pkg=['WEBNEWS POST PACKAGE','Date: '+new Date().toLocaleString(),'Source: '+($('url').value||'-'),'Title: '+($('sourceTitle').value||'-'),'','--- AI RESULT ---',$('aiResult').value,'','--- PROMPT USED ---',$('promptOut').value].join('\n');downloadText('webnews-post-package.txt',pkg)});
+
+/* Split AI result into copy boxes */
+const SECTION_DEFS=[
+ {key:'facts',label:'KEY FACTS — balala check karanna',rows:7,patterns:[/^key\s*facts\s*:?$/i,/^ona\s+karunu\s*:?$/i]},
+ {key:'main',label:'TITLE + ARTICLE — copy karanna',rows:15,patterns:[/^title\s*\+\s*article\s*:?$/i,/^title\s*(?:&|and)\s*article\s*:?$/i]},
+ {key:'titles',label:'OTHER TITLE OPTIONS',rows:5,patterns:[/^other\s+title\s+options\s*:?$/i,/^title\s+options\s*:?$/i,/^titles?\s*3\s*:?$/i]},
+ {key:'wp',label:'WORDPRESS DETAILS',rows:7,patterns:[/^wordpress\s+details\s*:?$/i,/^wp\s+fields(?:\s*:.*)?$/i]},
+ {key:'fb',label:'FACEBOOK',rows:5,patterns:[/^facebook(?:\s+(caption|text))?\s*:?$/i,/^fb\s*:?$/i]},
+ {key:'wa',label:'WHATSAPP',rows:4,patterns:[/^whats\s*app(?:\s+(text|broadcast|short\s+text))?\s*:?$/i,/^wa\s*:?$/i]},
+ {key:'confirm',label:'[CONFIRM KARANNA]',rows:7,patterns:[/^confirm\s+karanna\b/i]}
+];
+function detectSection(line){
+ let clean=line.trim().replace(/^=+\s*/,'').replace(/\s*=+$/,'').replace(/^#{1,6}\s*/,'').replace(/^[-*>\s]*/,'').replace(/^\d+\s*[).:-]\s*/,'').replace(/^[⭐\[]\s*/,'').replace(/[*`_]/g,'').trim();
+ if(!clean||clean.length>90)return null;
+ for(const def of SECTION_DEFS){if(def.patterns.some(p=>p.test(clean)))return def}
+ return null;
+}
+function parseAiSections(text){
+ const found={}; let current=null;
+ (text||'').split(/\r?\n/).forEach(line=>{
+  const def=detectSection(line);
+  if(def){current=def.key; if(!found[current])found[current]=[]; return}
+  if(current)found[current].push(line);
+ });
+ Object.keys(found).forEach(k=>{found[k]=found[k].join('\n').trim(); if(!found[k])delete found[k]});
+ return found;
+}
+function renderSplitOutput(){
+ const wrap=$('splitOutput'), st=$('splitStatus');
+ const raw=$('aiResult').value.trim();
+ wrap.innerHTML=''; st.className='status'; st.textContent='';
+ if(!raw)return;
+ const sections=parseAiSections(raw);
+ const present=SECTION_DEFS.filter(d=>sections[d.key]);
+ if(!present.length){status(st,'Blocks hambune na. Aluth prompt eken apu result eka paste kalama boxes auto hadenawa. Sampurna result eka uda box eke thiyenawa.','info');return}
+ const h=document.createElement('h3'); h.textContent='Wen karapu copy boxes'; h.style.marginTop='16px'; wrap.appendChild(h);
+ present.forEach(def=>{
+  const box=document.createElement('div'); box.className='splitbox';
+  const lab=document.createElement('label'); lab.textContent=def.label; lab.htmlFor='split-'+def.key;
+  const ta=document.createElement('textarea'); ta.id='split-'+def.key; ta.rows=def.rows; ta.readOnly=true; ta.value=sections[def.key];
+  const row=document.createElement('div'); row.className='btnrow';
+  const btn=document.createElement('button'); btn.type='button'; btn.className='btn light'; btn.textContent='Copy karanna';
+  btn.addEventListener('click',()=>copyTextFrom(ta.id,st,'✔ '+def.label+' copy una.'));
+  row.appendChild(btn); box.appendChild(lab); box.appendChild(ta); box.appendChild(row); wrap.appendChild(box);
+ });
+ status(st,'✔ Blocks '+present.length+'k hambuna. Ona block eka wenama copy karanna puluwan.','ok');
+}
+$('aiResult').addEventListener('input',renderSplitOutput);
+renderSplitOutput();
 
 /* checklist */
 function updateChecks(){const boxes=[...document.querySelectorAll('#publishChecks input')];const done=boxes.filter(b=>b.checked).length;$('checkProgress').style.width=(done/boxes.length*100)+'%'}
