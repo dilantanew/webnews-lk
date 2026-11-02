@@ -1,0 +1,88 @@
+﻿============================================================
+WebNews.lk — News Post දාන විදිය (සරල උපදෙස්)
+Version 1.3
+============================================================
+
+[මුලින්ම ඕන දේවල්]
+- Computer එක + internet
+- ChatGPT හරි Gemini හරි account එකක්
+- WordPress login (බොස්ගෙන් ඉල්ලගන්න)
+- Tool link එක හරි මේ folder එකේ files ටික හරි
+
+[වැදගත් සටහන]
+මේ system එකෙන් ලැබෙන්නේ TEXT package එක විතරයි.
+Image වැඩේ මේ system එකේ නැහැ — ඒක වෙනම කරනවා.
+
+------------------------------------------------------------
+ක්‍රමය 1: TOOL එකෙන් (මේක තමයි recommend කරන්නේ)
+------------------------------------------------------------
+පියවර 1: Tool එක open කරන්න.
+         - Web link එක ලැබිලා තියෙනවා නම් ඒක browser එකෙන් open කරන්න.
+         - නැත්නම් "WebNews-Post-Maker.html" file එක double-click කරන්න.
+         Install කරන්න දෙයක් නැහැ.
+
+පියවර 2: News එක දාන්න.
+  - Link එකක් තියෙනවා නම්: "News link" box එකට දාලා "Link eka Kiyawanna" ඔබන්න.
+  - Link කියවන්න බැරි වුණොත් හරි, link එකක් නැත්නම් හරි:
+    සම්පූර්ණ news text එක copy කරලා "Source text / notes" box එකට paste කරන්න.
+  - පුළුවන් නම් "Source title" (news එකේ මාතෘකාව) සහ
+    "Source name" (news එක ආපු තැන) ද පුරවන්න.
+
+පියවර 3: Category, Article lamba, Tone තෝරන්න.
+         (හිතාගන්න අමාරු නම් තියෙන විදියටම තියන්න.)
+
+පියවර 4: "⭐ ALL-IN-ONE Prompt Hadanna" ඔබන්න.
+         ඊටපස්සේ "Prompt Copy karanna" ඔබන්න.
+
+පියවර 5: ChatGPT හරි Gemini හරි open කරලා, prompt එක paste කරලා යවන්න.
+
+පියවර 6: AI එක දෙන සම්පූර්ණ උත්තරේ copy කරලා, ආපහු tool එකට ඇවිත්
+         "AI gen apu result eka methana paste karanna" box එකට paste කරන්න.
+         යටින් auto වෙන වෙනම copy boxes හැදෙනවා:
+         KEY FACTS / TITLE + ARTICLE / OTHER TITLE OPTIONS /
+         WORDPRESS DETAILS / FACEBOOK / WHATSAPP / CONFIRM KARANNA.
+         ඕන box එකේ "Copy karanna" button එක ඔබලා වෙන වෙනම copy කරගන්න.
+         ඕන නම් "Post Package .txt Download" ඔබලා file එකත් save කරගන්න.
+
+පියවර 7: මුලින්ම KEY FACTS box එක බලලා source එකත් එක්ක facts check කරන්න.
+         ඊටපස්සේ [CONFIRM KARANNA] ලිස්ට් එකත් check කරලා WordPress post එක හදන්න.
+
+------------------------------------------------------------
+ක්‍රමය 2: PROMPT එක විතරක් (tool එක නැති වෙලාවට)
+------------------------------------------------------------
+1. "MASTER-PROMPT.txt" open කරන්න.
+2. "PROMPT START" රේඛාවෙන් පහළ තියෙන ඔක්කොම copy කරන්න.
+3. ChatGPT/Gemini එකට paste කරලා, අන්තිමේ තියෙන SOURCE කොටසට
+   news link එක හරි සම්පූර්ණ text එක හරි paste කරලා යවන්න.
+4. ලැබෙන text package එක KEY FACTS, TITLE + ARTICLE ආදී blocks වලින් එන නිසා
+   ඕන block එක වෙන වෙනම copy කරලා පාවිච්චි කරන්න.
+
+------------------------------------------------------------
+WordPress එකට POST කරන පිළිවෙල
+------------------------------------------------------------
+1. "TITLE + ARTICLE" box එකෙන් TITLE: පහළ title එක WordPress Title field එකට දාන්න.
+2. එම box එකේම ARTICLE: යටින් තියෙන ලිපිය WordPress body එකට paste කරන්න.
+   (වෙන title එකක් ඕන නම් OTHER TITLE OPTIONS box එක බලන්න.)
+3. WORDPRESS DETAILS box එකෙන් Category එකයි English Tags ටිකයි දාන්න.
+4. Yoast SEO box එකේ Focus keyword එකයි Meta description එකයි paste කරන්න.
+5. URL slug එක package එකේ දීලා තියෙන විදියට හදන්න.
+6. Publish කරන්න කලින්: KEY FACTS box එකේ කරුණු සහ [CONFIRM KARANNA]
+   list එක එකින් එක check කරන්න. Check නොකර publish කරන්න එපා!
+7. Publish කළාට පස්සේ post එකේ link එක copy කරලා,
+   Facebook caption එකේයි WhatsApp text එකේයි [POST LINK] තියෙන තැනට
+   ඒ link එක දාලා share කරන්න.
+
+------------------------------------------------------------
+කාටවත් කඩන්න බැරි නීති (GOLDEN RULES)
+------------------------------------------------------------
+1. Source එකේ වචන ඒ විදියටම copy කරන්න එපා.
+2. ඇත්ත කියලා sure නැති දෙයක් (නම්, ඉලක්කම්, මරණ සංඛ්‍යාව, චෝදනා) ලියන්න එපා.
+   Sure නැත්නම් බොස්ගෙන් අහන්න, නැත්නම් post එක draft එකක් විදියට තියන්න.
+3. Tags දාන්නේ English වලින් විතරයි.
+4. Title එකට දිනය (date එක) දාන්න එපා.
+5. එකම news එක දෙපාරක් දාන්න එපා — කලින් site එකේ search කරලා බලන්න.
+6. ගැටලුවක් ආවොත් publish කරන්න එපා. Draft තියලා බොස්ට කියන්න.
+
+උදාහරණයක් බලන්න ඕන නම්: මේ folder එකේම තියෙන
+"EXAMPLE-Post-Package.md" file එක open කරලා බලන්න.
+ඒක ඇත්තටම හදලා ඉවර කරපු සම්පූර්ණ text package එකක්.

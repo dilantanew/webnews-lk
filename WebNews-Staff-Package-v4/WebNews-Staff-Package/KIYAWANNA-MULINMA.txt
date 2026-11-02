@@ -1,0 +1,27 @@
+﻿============================================================
+මුලින්ම මෙය කියවන්න — WebNews Staff Package
+============================================================
+
+මේ folder එකේ තියෙන්නේ News Post හදන්න ඕන දේවල් ඔක්කොම:
+
+1) SIMPLE-GUIDE-Sinhala.txt
+   → කරන විදිය පියවරෙන් පියවර. මුලින්ම මේක කියවන්න!
+
+2) WebNews-Post-Maker.html
+   → Tool එක. Double-click කළාම browser එකේ open වෙනවා.
+     Install කරන්න දෙයක් නැහැ.
+
+3) MASTER-PROMPT.txt
+   → AI (ChatGPT/Gemini) එකට දෙන prompt එක.
+     Tool එක නැති වෙලාවට පාවිච්චි කරන්න.
+
+4) EXAMPLE-Post-Package.md
+   → හදලා ඉවර කරපු උදාහරණ package එකක්. බලලා අදහසක් ගන්න.
+
+දවස ගානේ කරන්න තියෙන්නේ:
+Tool එක open කරන්න → News එක paste කරන්න → Prompt එක හදාගන්න →
+AI එකට දෙන්න → ලැබෙන text package එකෙන් WordPress post එක හදන්න.
+
+සටහන: Image වැඩේ මේ system එකේ නැහැ — ඒක වෙනම කරනවා.
+
+⚠️ Publish කරන්න කලින් හැමවෙලේම [CONFIRM KARANNA] ලිස්ට් එක check කරන්න!
