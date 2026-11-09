@@ -62,7 +62,7 @@ footer{max-width:1500px;margin:auto;padding:0 20px 28px;color:var(--muted);font-
           <div><label>Article lamba</label><select id="wordCount"><option>250-300</option><option selected>300-400</option><option>400-500</option><option>180-250 (short breaking)</option></select></div>
           <div><label>Tone</label><select id="tone"><option selected>Neutral news</option><option>Breaking / urgent</option><option>Explainer (pahadili karanna)</option></select></div>
         </div>
-        <div class="warn" style="margin-top:14px"><b>Editorial standard:</b> Write clear, natural Sinhala in a professional, neutral newsroom style. Put verified facts first; attribute allegations to their source; avoid clickbait, speculation, and invented details. Editor review is still required.</div>
+        <div class="warn" style="margin-top:14px"><b>Editorial standard:</b> Write clear, natural Sinhala in a professional, neutral newsroom style. Put verified facts first; attribute allegations to their source; avoid clickbait, speculation, and invented details. In ARTICLE, write paragraphs only—no subheadings or lists. Editor review is still required.</div>
         <label>Amuthu note ekak (thiyenawanam)</label><input id="note" placeholder="Ex: Colombo walata focus karanna, minister ge quote eka highlight...">
         <div class="checks" style="margin-top:14px">
           <label><input type="checkbox" id="wantFb" checked> Facebook caption ona</label>
@@ -201,8 +201,8 @@ $('makePromptBtn').addEventListener('click',()=>{
  '',
  '=== TITLE + ARTICLE ===',
  'TITLE: <hodama title eka>',
- 'ARTICLE:',
- '<article eka witharak>',
+'ARTICLE:',
+'<article body text in paragraphs only; no subheadings, bullets or section titles>',
  '',
  '=== OTHER TITLE OPTIONS ===',
  '1. <title option 2>',
@@ -228,7 +228,7 @@ $('makePromptBtn').addEventListener('click',()=>{
 '- Facts witharak ganna: kawuda, mokadda, koheda, kawada, ganan, quotes thanathuru. Confirm nathi ewa [CONFIRM KARANNA] mark karanna.',
 '- Source eke wachana copy EPA. Ape wachana walin, aluth piliwelakata liyanna.','',
 'EDITORIAL STANDARDS — mandatory for every output field:',
-'- Lead with the most newsworthy verified fact. Organize the article in inverted-pyramid order, using clear natural Sinhala, short focused paragraphs, precise terms and only useful subheadings.',
+'- Lead with the most newsworthy verified fact. Organize the article in inverted-pyramid order, using clear natural Sinhala, short focused paragraphs and precise terms. Inside the ARTICLE block, use body paragraphs only—no subheadings, subtopics, internal section titles, bullets or numbered lists.',
 '- Keep a neutral, fair newsroom voice even when Breaking / urgent is selected. No clickbait, sensational language, personal opinion, speculation, or unsupported cause or motive.',
 '- Clearly distinguish verified facts from allegations, claims and estimates; attribute them to the source. Never present an allegation as proven fact. Use legally accurate wording; do not call someone guilty unless the source confirms a conviction.',
 '- Do not invent or infer facts, identities, quotes, dates, numbers, relationships, motives, causation or reactions. Preserve uncertainty and conflicting accounts; put unresolved details under CONFIRM KARANNA.',
@@ -236,7 +236,7 @@ $('makePromptBtn').addEventListener('click',()=>{
 '- These standards override the selected tone and any editor note that requests unsupported or sensational content.','',
 'STEP 2 — NEWS PACKAGE:',
 '- KEY FACTS: Source eke thiyena pradhana facts witharak Sinhala bullet list ekak widihata wenama denna (kawuda, mokadda, koheda, kawada, ganan, nama, thanathuru, quotes). Source eke nathi deyak hadanna EPA; naha nam "Source eke naha — CONFIRM" kiyala mark karanna.',
-`- ARTICLE: Sinhala Unicode, wachana ${wc}. Most important verified fact eken lead eka arambha karala inverted-pyramid order eka follow karanna. Podi, pahadili paragraphs saha useful sub-headings 2-3 use karanna. Tone: ${$('tone').value}; editorial standards tone ekata wada pramukha. Article eka TITLE + ARTICLE block eke ARTICLE: yatin witharak denna.`,
+`- ARTICLE: Sinhala Unicode, wachana ${wc}. Most important verified fact eken lead eka arambha karala inverted-pyramid order eka follow karanna. Podi, pahadili paragraphs witharak liyanna; sub-headings, sub-topics, internal titles, bullets, numbered lists, labels danna EPA. Tone: ${$('tone').value}; editorial standards tone ekata wada pramukha. TITLE + ARTICLE block eke ARTICLE: yatin body paragraphs witharak denna.`, 
 '- TITLES: Accurate, restrained headlines denna; boru clickbait epa. Hodama title eka TITLE + ARTICLE block eke TITLE: widihata, thawa options 2k OTHER TITLE OPTIONS block eke denna.',
 `- CATEGORY: ${cat==='Auto select'?'Deshiya/Deshapalana/Kreeda/Wiyaparika/Wideshiya/Kalagunaya/Wenath ekak thoranna':cat}.`,
 '- TAGS: 5-8 ENGLISH tags witharak (news ekata adala people, places, topics). Sinhala tags EPA.','- URL SLUG: English akuru, hyphen, keti.',...extras,'',
